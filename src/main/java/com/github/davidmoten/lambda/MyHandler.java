@@ -40,6 +40,7 @@ public class MyHandler {
                         total += length;
                     }
                     totalSize.addAndGet(total);
+                    t = System.currentTimeMillis() - t;
                     double rateMBPerSecond = ((double) total) / t * 1000 / 1024 / 1024;
                     s.append(objectName + " rateMBPerSecond=" + rateMBPerSecond + "\n");
                 } catch (IOException e) {
