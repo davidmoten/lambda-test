@@ -29,8 +29,8 @@ public class MyHandler {
             executor.submit(() -> {
                 S3ObjectInputStream is = s3.getObject(bucketName, objectName).getObjectContent();
                 try {
-                    is.read();
                     long t = System.currentTimeMillis();
+                    is.read();
                     long ttfb = System.currentTimeMillis() - t;
                     s.append(objectName + " ttfbMs=" + ttfb + "\n");
                     byte[] bytes = new byte[8192];
@@ -40,7 +40,7 @@ public class MyHandler {
                         total += length;
                     }
                     totalSize.addAndGet(total);
-                    double rateMBPerSecond = totalSize.doubleValue() / t * 1000 / 1024 / 1024;
+                    double rateMBPerSecond = ((double) total) / t * 1000 / 1024 / 1024;
                     s.append(objectName + " rateMBPerSecond=" + rateMBPerSecond + "\n");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
